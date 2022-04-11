@@ -7,7 +7,7 @@ function countAverageArrayValue(array: number[], callback: Callback): number | n
   let counter: number = 0;
   let sum: number = 0;
 
-  for (let i = 0; i < array.length; i++) {
+  for (let i: number = 0; i < array.length; i++) {
       if (callback(array[i])) {
           counter++;
           sum += array[i];
@@ -27,8 +27,8 @@ function countAverageMatrixValue(matrix: number[][], callback: Callback): number
   let counter: number = 0;
   let sum: number = 0;
 
-  for (let i = 0; i < matrix.length; i++) {
-      for (let j = 0; j < matrix[i].length; j++) {
+  for (let i: number = 0; i < matrix.length; i++) {
+      for (let j: number = 0; j < matrix[i].length; j++) {
           if (callback(matrix[i][j])) {
               sum += matrix[i][j];
               counter++;

@@ -6,8 +6,8 @@ function countSumMatrixElements(
   ): number {
     let sum: number = 0;
 
-    for (let i = 0; i < matrix.length; i++) {
-        for (let j = 0; j < matrix[i].length; j++) {
+    for (let i: number = 0; i < matrix.length; i++) {
+        for (let j: number  = 0; j < matrix[i].length; j++) {
             if (callback(matrix[i][j])) {
                 sum += matrix[i][j];
             }
@@ -22,8 +22,8 @@ function countAmountMatrixElements(
   ): number {
     let counter: number = 0;
 
-    for (let i = 0; i < matrix.length; i++) {
-        for (let j = 0; j < matrix[i].length; j++) {
+    for (let i: number = 0; i < matrix.length; i++) {
+        for (let j: number = 0; j < matrix[i].length; j++) {
             if (callback(matrix[i][j])) {
                 counter++;
             }

@@ -7,7 +7,7 @@ function countMinToMaxSum(
     ): number {
         let sum: number = 0;
 
-        for (let i = min; i <= max; i++) {
+        for (let i: number = min; i <= max; i++) {
             callback(i) && (sum += i);
         }
         return sum;

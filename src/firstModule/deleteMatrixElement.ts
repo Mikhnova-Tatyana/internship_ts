@@ -4,8 +4,8 @@ function deleteMatrixRowElement(matrix: number[][]): number[][] {
   }
   let counter: number = 0;
 
-  for (let i = 0; i < matrix.length; i++) {
-    for (let j = 0; j < matrix[i].length; j++) {
+  for (let i: number = 0; i < matrix.length; i++) {
+    for (let j: number = 0; j < matrix[i].length; j++) {
       if (matrix[i][j] === 0) {
         counter++;
       }
@@ -23,17 +23,17 @@ function deleteMatrixColumnElement(matrix: number[][]): number[][] {
   if (matrix.length === 0) {
     throw new Error('matrix length cannot be zero');
   }
-  for (let i = 0; i < matrix.length; i++) {
-    for (let j = 0; j < matrix[i].length; j++) {
+  for (let i: number = 0; i < matrix.length; i++) {
+    for (let j: number = 0; j < matrix[i].length; j++) {
       if (matrix[i][j] === 0) {
-        let column = j;
-        for (let k = 0; k < matrix.length; k++) {
+        let column: number = j;
+        for (let k: number = 0; k < matrix.length; k++) {
           matrix[k].splice(column, 1);
           j--;
         }
       }
     }
-    for (let l = 0; l < matrix.length; l++) {
+    for (let l: number = 0; l < matrix.length; l++) {
       if (matrix[l].length === 0) {
         matrix.splice(l--, 1);
       }

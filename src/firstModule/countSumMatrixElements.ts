@@ -6,8 +6,8 @@ function countSumAllMatrixElements(matrix: number[][], callback: Cb): number {
   }
   let result: number = 0;
 
-  for (let i = 0; i < matrix.length; i++) {
-      for (let j = 0; j < matrix[i].length; j++) {
+  for (let i: number = 0; i < matrix.length; i++) {
+      for (let j: number = 0; j < matrix[i].length; j++) {
           if (callback(i, j)) {
               result += matrix[i][j];
           }
@@ -22,8 +22,8 @@ function countAmountZeroMatrixElements(matrix: number[][], callback: Cb): number
   }
   let counter: number = 0;
 
-  for (let i = 0; i < matrix.length; i++) {
-      for (let j = 0; j < matrix[i].length; j++) {
+  for (let i: number = 0; i < matrix.length; i++) {
+      for (let j: number = 0; j < matrix[i].length; j++) {
           if (callback(i, j) && matrix[i][j] === 0) {
               counter++;
           }
@@ -39,8 +39,8 @@ function countAverageMatrixElements(matrix: number[][], callback: Cb): number | 
   let counter: number = 0;
   let sum: number = 0;
 
-  for (let i = 0; i < matrix.length; i++) {
-      for (let j = 0; j < matrix[i].length; j++) {
+  for (let i: number = 0; i < matrix.length; i++) {
+      for (let j: number = 0; j < matrix[i].length; j++) {
           if (callback(i, j)) {
               counter++;
               sum += matrix[i][j];

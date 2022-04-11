@@ -1,28 +1,30 @@
-type ContextType = {
-  [key: string | symbol ]: any;
-}
+type ContextType<T> = { 
+  [key: string | symbol ]: T; 
+} 
+ 
+ 
+Object.defineProperty(Function.prototype, "customCall", { 
+  value: function<T> (this: Function, context: ContextType<Function>, ...args: T[]): T { 
+    let func = this; 
+    let symbol: symbol = Symbol(); 
+    context[symbol] = func; 
+    let result: T = context[symbol](...args); 
+    delete context[symbol]; 
+    return result; 
+  }, 
+});
 
-interface Function {
-  customCall(context: ContextType, ...args: any[]): any;
-  customBind(context: ContextType, ...args: any[]): any;
-}
 
-Function.prototype.customCall = function (context: ContextType, ...args: any[]): any {
-  const func = this;
-  let symbol: symbol = Symbol();
-  context[symbol] = func;
-  let result = context[symbol](...args);
-  delete context[symbol];
-  return result;
-}
+Object.defineProperty(Function.prototype, "customBind", {
+  value: function<T> (this: Function, context: ContextType<Function>, ...args: T[]): Function {
+    const func = this;
 
-Function.prototype.customBind = function (context: ContextType, ...args: any[]): any {
-  const func = this;
-  return function (...rest: any[]) {
+    return function (...rest: T[]): T {
       let symbol: symbol = Symbol();
       context[symbol] = func;
-      let result = context[symbol](...args.concat(rest));
+      let result: T = context[symbol](...args.concat(rest));
       delete context[symbol];
       return result;
-  }
-}
+    };
+  },
+});

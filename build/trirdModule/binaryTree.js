@@ -61,12 +61,10 @@ class BinaryTree {
                 node = node.left;
                 return node;
             }
-            else {
-                let minElement = this.findMinElement(node.right);
-                node.value = minElement.value;
-                node.right = this.delete(minElement.value, node.right);
-                return node;
-            }
+            let minElement = this.findMinElement(node.right);
+            node.value = minElement.value;
+            node.right = this.delete(minElement.value, node.right);
+            return node;
         }
     }
     search(value, node) {

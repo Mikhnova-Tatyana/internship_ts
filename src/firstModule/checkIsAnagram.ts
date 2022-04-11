@@ -4,15 +4,15 @@ function checkIsAnagram(firstWord: string, secondWord: string): boolean {
     if (firstWord.length !== secondWord.length) {
         return false;
     }
-    let charSumFirst = countCharSum(firstWord);
-    let charSumSecond = countCharSum(secondWord);
+    let charSumFirst: number = countCharSum(firstWord);
+    let charSumSecond: number = countCharSum(secondWord);
 
     return (charSumFirst === charSumSecond);
 }
 
 function countCharSum(word: string): number {
-    let charSum = 0;
-    for (let i = 0; i < word.length; i++) {
+    let charSum: number = 0;
+    for (let i: number = 0; i < word.length; i++) {
         charSum += word.charCodeAt(i);
     }
     return charSum;
@@ -22,10 +22,11 @@ function checkIsAnagram2(firstWord: string, secondWord: string): boolean {
     if (firstWord.length !== secondWord.length) {
         return false;
     }
-    const firstCharObject = getCharObject(firstWord);
-    const secondCharObject = getCharObject(secondWord);
+    const firstCharObject: INumberObject = getCharObject(firstWord);
+    const secondCharObject: INumberObject = getCharObject(secondWord);
 
-    for (let char in firstCharObject) {
+    let char: string;
+    for (char in firstCharObject) {
         if (firstCharObject[char] !== secondCharObject[char]) {
             return false;
         }
@@ -36,7 +37,8 @@ function checkIsAnagram2(firstWord: string, secondWord: string): boolean {
 function getCharObject(word: string): INumberObject {
     const charObject: INumberObject = {};
     word = word.toLowerCase();
-    for (let char of word) {
+    let char: string;
+    for (char of word) {
         charObject[char] = ++charObject[char] || 1;
     }
     return charObject;

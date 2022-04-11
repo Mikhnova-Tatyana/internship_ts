@@ -21,7 +21,8 @@ function checkIsAnagram2(firstWord, secondWord) {
     }
     const firstCharObject = getCharObject(firstWord);
     const secondCharObject = getCharObject(secondWord);
-    for (let char in firstCharObject) {
+    let char;
+    for (char in firstCharObject) {
         if (firstCharObject[char] !== secondCharObject[char]) {
             return false;
         }
@@ -31,7 +32,8 @@ function checkIsAnagram2(firstWord, secondWord) {
 function getCharObject(word) {
     const charObject = {};
     word = word.toLowerCase();
-    for (let char of word) {
+    let char;
+    for (char of word) {
         charObject[char] = ++charObject[char] || 1;
     }
     return charObject;

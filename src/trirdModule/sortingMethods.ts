@@ -1,34 +1,37 @@
-type sortingCallback<T> = (firstElement: T, secondElement: T) => boolean;
-
-interface Array<T> {
-  bubbleSort(callback: sortingCallback<T>): T[];
-  selectionSort(callback: sortingCallback<T>): T[];
-}
-
-Array.prototype.bubbleSort = function (callback) {
-  for (let i = 0; i < this.length; i++) {
-    for (let j = 0; j < this.length - 1 - i; j++) {
-      if (callback(this[j], this[j + 1])){
-        let temp = this[j];
-        this[j] = this[j + 1];
-        this[j + 1] = temp;
+Object.defineProperty(Array.prototype, "bubbleSort", {
+  value: function<T> (
+    callback: (firstElement: T, secondElement: T) => boolean
+  ) {
+    let currentArray: T[] = this;
+    for (let i: number = 0; i < currentArray.length; i++) {
+      for (let j: number = 0; j < currentArray.length - 1 - i; j++) {
+        if (callback(currentArray[j], currentArray[j + 1])){
+          let temp: T = currentArray[j];
+          currentArray[j] = currentArray[j + 1];
+          currentArray[j + 1] = temp;
+        }
       }
     }
-  }
-  return this;
-}
+    return currentArray;
+  },
+});
 
-Array.prototype.selectionSort = function (callback) {
-  for (let i = 0; i < this.length - 1; i++) {
-    let index: number = i;
-    for (let j = i + 1; j < this.length; j++) {
-      if (callback(this[j], this[index])) {
-        index = j;
+Object.defineProperty(Array.prototype, "selectionSort", {
+  value: function<T> (
+    callback: (firstElement: T, secondElement: T) => boolean
+  ) {
+    let currentArray: T[] = this;
+    for (let i: number = 0; i < currentArray.length - 1; i++) {
+      let index: number = i;
+      for (let j: number = i + 1; j < currentArray.length; j++) {
+        if (callback(currentArray[j], currentArray[index])) {
+          index = j;
+        }
       }
+      let temp: T = currentArray[i];
+      currentArray[i] = currentArray[index];
+      currentArray[index] = temp;
     }
-    let temp = this[i];
-    this[i] = this[index];
-    this[index] = temp;
-  }
-  return this;
-}
+    return currentArray;
+  },
+});

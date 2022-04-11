@@ -9,7 +9,7 @@ function countSumArrayElements(
     }
     let sum: number = 0;
 
-    for (let i = 0; i < array.length; i++) {
+    for (let i: number = 0; i < array.length; i++) {
         if (callback(array[i])) {
             sum += array[i];
         }

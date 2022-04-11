@@ -41,8 +41,8 @@ class Triangle extends Figure {
       )) {
         throw new Error("Invalid data");
       };
-      const semiPerimeter = (this.firstCathetus + this.secondCathetus + this.hypotenuse) / 2;
-      const area = Math.sqrt((semiPerimeter *
+      const semiPerimeter: number = (this.firstCathetus + this.secondCathetus + this.hypotenuse) / 2;
+      const area: number = Math.sqrt((semiPerimeter *
           (semiPerimeter - this.firstCathetus) *
           (semiPerimeter - this.secondCathetus) *
           (semiPerimeter - this.hypotenuse)));

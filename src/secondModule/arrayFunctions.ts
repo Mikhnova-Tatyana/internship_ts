@@ -1,19 +1,19 @@
 Object.defineProperty(Array.prototype, "customForEach", {
-  value: function (
-    callback: (element: any, index?: number, thisArray?: any[]) => void
+  value: function<T> (
+    callback: (element: T, index?: number, thisArray?: T[]) => void
   ) {
-    for (let i = 0; i < this.length; i++) {
+    for (let i: number = 0; i < this.length; i++) {
       callback(this[i], i, this);
     }
   },
 });
 
 Object.defineProperty(Array.prototype, "customMap", {
-  value: function (
-    callback: (element: any, index?: number, thisArray?: any[]) => any[]
+  value: function<T> (
+    callback: (element: T, index?: number, thisArray?: T) => T
   ) {
-    const resultArray: any[] = [];
-    for (let i = 0; i < this.length; i++) {
+    const resultArray: T[] = [];
+    for (let i: number = 0; i < this.length; i++) {
       resultArray.push(callback(this[i], i, this));
     }
     return resultArray;
@@ -21,11 +21,11 @@ Object.defineProperty(Array.prototype, "customMap", {
 });
 
 Object.defineProperty(Array.prototype, "customFilter", {
-  value: function (
-    callback: (element: any, index?: number, thisArray?: any[]) => any[]
+  value: function<T> (
+    callback: (element: T, index?: number, thisArray?: T[]) => T[]
   ) {
-    const resultArray: any[] = [];
-    for (let i = 0; i < this.length; i++) {
+    const resultArray: T[] = [];
+    for (let i: number = 0; i < this.length; i++) {
       if(callback(this[i], i, this)){
         resultArray.push(this[i]);
       }
@@ -35,10 +35,10 @@ Object.defineProperty(Array.prototype, "customFilter", {
 });
 
 Object.defineProperty(Array.prototype, "customFind", {
-  value: function (
-    callback: (element: any, index?: number, thisArray?: any[]) => any | undefined
+  value: function<T> (
+    callback: (element: T, index?: number, thisArray?: T[]) => T | undefined
   ) {
-    for (let i = 0; i < this.length; i++) {
+    for (let i: number = 0; i < this.length; i++) {
       if(callback(this[i], i, this)){
         return this[i];
       }
@@ -48,9 +48,9 @@ Object.defineProperty(Array.prototype, "customFind", {
 });
 
 Object.defineProperty(Array.prototype, "customReduce", {
-  value: function (
-    callback: (accumulator: any, element: any, index?: number, thisArray?: any[])  => any, 
-    accumulator?: any
+  value: function<T> (
+    callback: (accumulator: T | undefined, element: T, index?: number, thisArray?: T[])  => T, 
+    accumulator?: T
   ) {
     let index: number = 0;
     if (arguments.length < 2) {

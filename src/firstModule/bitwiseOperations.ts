@@ -12,7 +12,7 @@ function countBits(number: number): CountBitsObject {
       zeroBits: 0,
       unitBits: 0,
   };
-  for (let i = 0; i < 32; i++) {
+  for (let i: number = 0; i < 32; i++) {
       if ((number & 1 << i) === 1 << i) {
           ++countBitsObject.unitBits;
       } 
@@ -30,7 +30,7 @@ function bitwiseInvert2(number: number): number {
 }
 
 function bitwiseInvert3(number: number): number {
-    for (let i = 0; i < 32; i++) {
+    for (let i: number = 0; i < 32; i++) {
         if (((number >> i) & 1) === 0) {
             number ^= (0 << i);
         }

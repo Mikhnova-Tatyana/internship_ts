@@ -2,17 +2,12 @@ interface IBinaryTree<T> {
   value: T | null;
   left: IBinaryTree<T> | null;
   right: IBinaryTree<T> | null;
-
-  insert: (value: T, node: IBinaryTree<T>) => IBinaryTree<T> | undefined;
-  findMinElement: (node: IBinaryTree<T>) => IBinaryTree<T>;
-  delete: (value: T | null, node: IBinaryTree<T> | null) => IBinaryTree<T> | null;
-  search: (value: T, node: IBinaryTree<T>) => boolean;
 }
 
-class BinaryTree implements IBinaryTree<number> {  
-  value: number | null;
-  left: IBinaryTree<number> | null;
-  right: IBinaryTree<number> | null;
+class BinaryTree<T> {  
+  value: T | null;
+  left: IBinaryTree<T> | null;
+  right: IBinaryTree<T> | null;
 
   constructor() {
     this.value = null;
@@ -20,7 +15,7 @@ class BinaryTree implements IBinaryTree<number> {
     this.left = null;
   } 
 
-  insert(value: number, node: IBinaryTree<number>): IBinaryTree<number> | undefined { 
+  insert(value: T, node: IBinaryTree<T>): IBinaryTree<T> | undefined { 
       node = node || this; 
       if (node.value === null) { 
         node.value = value; 
@@ -39,7 +34,7 @@ class BinaryTree implements IBinaryTree<number> {
       } 
   }
   
-  findMinElement(node: IBinaryTree<number>): IBinaryTree<number> {
+  findMinElement(node: IBinaryTree<T>): IBinaryTree<T> {
     node = node || this; 
     if (node.left === null) {
       return node;
@@ -47,8 +42,8 @@ class BinaryTree implements IBinaryTree<number> {
     return this.findMinElement(node.left);
   }
 
-  delete(value: number | null, node: IBinaryTree<number> | null): 
-    IBinaryTree<number> | null {
+  delete(value: T | null, node: IBinaryTree<T> | null): 
+    IBinaryTree<T> | null {
     node = node || this; 
     if (node.value && value! < node.value) { 
       if (node.left === null) { 
@@ -73,16 +68,15 @@ class BinaryTree implements IBinaryTree<number> {
         } else if(node.right === null) {
           node = node.left;
           return node;  
-        } else {
-          let minElement = this.findMinElement(node.right);
+        }
+          let minElement: IBinaryTree<T> = this.findMinElement(node.right);
           node.value = minElement.value; 
           node.right = this.delete(minElement.value, node.right); 
           return node; 
-        }
     }
   }
 
-  search(value: number, node: IBinaryTree<number>): boolean { 
+  search(value: T, node: IBinaryTree<T>): boolean { 
     node = node || this; 
     if (value < node.value!) { 
       if (node.left === null) { 

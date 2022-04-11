@@ -6,15 +6,16 @@ function countUniqueWordsInSentence(sentence) {
     const wordsCountObj = {};
     let uniqueWordsAmount = 0;
     for (let i = 0; i < words.length; i++) {
-        let currentEleement = words[i];
-        if (!(currentEleement in wordsCountObj)) {
-            wordsCountObj[currentEleement] = 1;
+        let currentElement = words[i];
+        if (!(currentElement in wordsCountObj)) {
+            wordsCountObj[currentElement] = 1;
         }
         else {
-            wordsCountObj[currentEleement]++;
+            wordsCountObj[currentElement]++;
         }
     }
-    for (const word in wordsCountObj) {
+    let word;
+    for (word in wordsCountObj) {
         wordsCountObj[word] === 1 && uniqueWordsAmount++;
     }
     return uniqueWordsAmount;
