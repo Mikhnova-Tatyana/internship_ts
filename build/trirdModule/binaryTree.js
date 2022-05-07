@@ -11,7 +11,7 @@ class BinaryTree {
             node.value = value;
             return;
         }
-        if (value < node.value) {
+        if (value.lessThan(node.value)) {
             if (node.left === null) {
                 node.left = new BinaryTree();
             }
@@ -33,14 +33,14 @@ class BinaryTree {
     }
     delete(value, node) {
         node = node || this;
-        if (node.value && value < node.value) {
+        if (node.value !== null && value.lessThan(node.value)) {
             if (node.left === null) {
                 return null;
             }
             node.left = this.delete(value, node.left);
             return node;
         }
-        else if (node.value && value > node.value) {
+        else if (node.value !== null && value.moreThan(node.value)) {
             if (node.right === null) {
                 return null;
             }
@@ -69,13 +69,13 @@ class BinaryTree {
     }
     search(value, node) {
         node = node || this;
-        if (value < node.value) {
+        if (node.value !== null && value.moreThan(node.value)) {
             if (node.left === null) {
                 return false;
             }
             return this.search(value, node.left);
         }
-        else if (value > node.value) {
+        else if (node.value !== null && value.moreThan(node.value)) {
             if (node.right === null) {
                 return false;
             }
