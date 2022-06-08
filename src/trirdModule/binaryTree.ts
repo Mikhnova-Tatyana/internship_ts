@@ -1,4 +1,4 @@
-interface IComparable<T = any> {
+interface IComparable<T = unknown> {
   value: T;
   equal: (b: T) => boolean;
   lessThan: (b: T) => boolean;
