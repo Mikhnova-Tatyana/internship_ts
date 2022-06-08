@@ -9,7 +9,7 @@ class BinaryTree {
         node = node || this;
         if (node.value === null) {
             node.value = value;
-            return;
+            return value;
         }
         if (value.lessThan(node.value)) {
             if (node.left === null) {
@@ -86,3 +86,15 @@ class BinaryTree {
         }
     }
 }
+const numObj = {
+    value: 10,
+    equal(b) {
+        return this.value === b ? true : false;
+    },
+    lessThan(b) {
+        return this.value < b ? true : false;
+    },
+    moreThan(b) {
+        return this.value > b ? true : false;
+    },
+};

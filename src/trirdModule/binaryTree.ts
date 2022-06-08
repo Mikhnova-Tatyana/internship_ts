@@ -1,4 +1,5 @@
 interface IComparable<T = any> {
+  value: T;
   equal: (b: T) => boolean;
   lessThan: (b: T) => boolean;
   moreThan: (b: T) => boolean;
@@ -10,7 +11,7 @@ interface IBinaryTree<T extends IComparable> {
   right: IBinaryTree<T> | null; 
 }
  
-class BinaryTree<T extends IComparable> {   
+class BinaryTree<T extends IComparable> implements IBinaryTree<T> {   
   value: T | null; 
   left: IBinaryTree<T> | null; 
   right: IBinaryTree<T> | null; 
@@ -21,11 +22,11 @@ class BinaryTree<T extends IComparable> {
     this.left = null; 
   }  
  
-  insert(value: T, node: IBinaryTree<T>): IBinaryTree<T> | undefined {  
+  insert(value: T, node: IBinaryTree<T>): IBinaryTree<T> | T {  
       node = node || this;  
       if (node.value === null) {  
         node.value = value;  
-        return;  
+        return value;
       }  
       if (value.lessThan(node.value)) {  
         if (node.left === null) {  
@@ -99,3 +100,16 @@ class BinaryTree<T extends IComparable> {
     }  
   } 
 }
+
+const numObj: IComparable<number> = {
+    value: 10,
+    equal(b) {
+        return this.value === b ? true : false;
+    },
+    lessThan(b) {
+        return this.value < b ? true : false;
+    },
+    moreThan(b) {
+        return this.value > b ? true : false;
+    },
+};
