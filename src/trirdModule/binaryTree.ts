@@ -1,17 +1,17 @@
-interface IComparable<T = unknown> {
+type Order = -1 | 0 | 1;
+
+interface ICompare<T = unknown> {
   value: T;
-  equal: (b: T) => boolean;
-  lessThan: (b: T) => boolean;
-  moreThan: (b: T) => boolean;
+  compare: (b: T) => Order;
 }
 
-interface IBinaryTree<T extends IComparable> { 
+interface IBinaryTree<T extends ICompare> { 
   value: T | null;
   left: IBinaryTree<T> | null; 
   right: IBinaryTree<T> | null; 
 }
  
-class BinaryTree<T extends IComparable> implements IBinaryTree<T> {   
+class BinaryTree<T extends ICompare> implements IBinaryTree<T> {   
   value: T | null; 
   left: IBinaryTree<T> | null; 
   right: IBinaryTree<T> | null; 
@@ -28,7 +28,7 @@ class BinaryTree<T extends IComparable> implements IBinaryTree<T> {
         node.value = value;  
         return value;
       }  
-      if (value.lessThan(node.value)) {  
+      if (value.compare(node.value) === -1) {  
         if (node.left === null) {  
           node.left = new BinaryTree();  
         }  
@@ -52,13 +52,13 @@ class BinaryTree<T extends IComparable> implements IBinaryTree<T> {
   delete(value: T, node: IBinaryTree<T> | null):  
     IBinaryTree<T> | null { 
     node = node || this;  
-    if (node.value !== null && value.lessThan(node.value)) {  
+    if (node.value !== null && value.compare(node.value) === -1) {  
       if (node.left === null) {  
         return null;  
       }  
       node.left = this.delete(value, node.left);  
       return node;  
-    } else if (node.value !== null && value.moreThan(node.value)) {  
+    } else if (node.value !== null && value.compare(node.value) === 1) {  
         if (node.right === null) {  
           return null;  
         }  
@@ -85,12 +85,12 @@ class BinaryTree<T extends IComparable> implements IBinaryTree<T> {
  
   search(value: T, node: IBinaryTree<T>): boolean {  
     node = node || this;  
-    if (node.value !== null && value.moreThan(node.value)) {  
+    if (node.value !== null && value.compare(node.value) === 1) {  
       if (node.left === null) {  
         return false;  
       }  
       return this.search(value, node.left);  
-    } else if (node.value !== null && value.moreThan(node.value)) {  
+    } else if (node.value !== null && value.compare(node.value) === 1) {  
       if (node.right === null) {  
         return false;  
       }  
@@ -101,15 +101,11 @@ class BinaryTree<T extends IComparable> implements IBinaryTree<T> {
   } 
 }
 
-const numObj: IComparable<number> = {
+const numObj: ICompare<number> = {
     value: 10,
-    equal(b) {
-        return this.value === b ? true : false;
-    },
-    lessThan(b) {
-        return this.value < b ? true : false;
-    },
-    moreThan(b) {
-        return this.value > b ? true : false;
-    },
+    compare(b) {
+      if(this.value === b) return 0;
+      if(this.value < b) return -1;
+      return 1;
+    }
 };
