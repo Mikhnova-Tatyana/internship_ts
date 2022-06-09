@@ -1,8 +1,6 @@
-type Order = -1 | 0 | 1;
-
 interface ICompare<T = unknown> {
   value: T;
-  compare: (b: T) => Order;
+  compare: (b: T) => number;
 }
 
 interface IBinaryTree<T extends ICompare> { 
@@ -28,7 +26,7 @@ class BinaryTree<T extends ICompare> implements IBinaryTree<T> {
         node.value = value;  
         return value;
       }  
-      if (value.compare(node.value) === -1) {  
+      if (value.compare(node.value) < 0) {  
         if (node.left === null) {  
           node.left = new BinaryTree();  
         }  
@@ -52,13 +50,13 @@ class BinaryTree<T extends ICompare> implements IBinaryTree<T> {
   delete(value: T, node: IBinaryTree<T> | null):  
     IBinaryTree<T> | null { 
     node = node || this;  
-    if (node.value !== null && value.compare(node.value) === -1) {  
+    if (node.value !== null && value.compare(node.value) < 0) {  
       if (node.left === null) {  
         return null;  
       }  
       node.left = this.delete(value, node.left);  
       return node;  
-    } else if (node.value !== null && value.compare(node.value) === 1) {  
+    } else if (node.value !== null && value.compare(node.value) > 0) {  
         if (node.right === null) {  
           return null;  
         }  
@@ -85,12 +83,12 @@ class BinaryTree<T extends ICompare> implements IBinaryTree<T> {
  
   search(value: T, node: IBinaryTree<T>): boolean {  
     node = node || this;  
-    if (node.value !== null && value.compare(node.value) === 1) {  
+    if (node.value !== null && value.compare(node.value) > 0) {  
       if (node.left === null) {  
         return false;  
       }  
       return this.search(value, node.left);  
-    } else if (node.value !== null && value.compare(node.value) === 1) {  
+    } else if (node.value !== null && value.compare(node.value) > 0) {  
       if (node.right === null) {  
         return false;  
       }  
