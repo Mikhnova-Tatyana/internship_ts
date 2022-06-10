@@ -7,11 +7,11 @@ class A implements IComparable {
     this.value = value;
   }
   hashCode(): number {
-    let hash = 0;
-    let key = this.value.toString();
+    let hash: number = 0;
+    let key: string = this.value.toString();
     if (key.length === 0) return hash;  
-    for (let i = 0; i < key.length; i++) {
-      const char = key.charCodeAt(i);
+    for (let i: number = 0; i < key.length; i++) {
+      const char: number = key.charCodeAt(i);
       hash = ((hash << 5) - hash) + char;
       hash = hash & hash;
     }
@@ -24,11 +24,11 @@ class B implements IComparable {
     this.value = value;
   }
   hashCode(): number {
-    let hash = 0;
-    let key = this.value.toString();
+    let hash: number = 0;
+    let key: string = this.value.toString();
     if (key.length == 0) return hash;  
     for (let i = 0; i < key.length; i++) {
-      const char = key.charCodeAt(i);
+      const char: number = key.charCodeAt(i);
       hash = ((hash << 5) - hash) + char;
       hash = hash & hash;
     }
