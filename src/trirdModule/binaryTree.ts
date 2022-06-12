@@ -2,7 +2,7 @@ interface IComparable {
   hashCode: () => number;
 }
 
-class A implements IComparable {
+class strObject implements IComparable {
   constructor(private value: string) {
     this.value = value;
   }
@@ -19,7 +19,7 @@ class A implements IComparable {
   }
 }
 
-class B implements IComparable {
+class numObject implements IComparable {
   constructor(private value: number) {
     this.value = value;
   }
@@ -131,7 +131,7 @@ class BinaryTree<T extends IComparable> implements IBinaryTree<T> {
   }
 }
 
-const a = new A('ada');
-const b = new B(12);
-// console.log(a.hashCode());
-// console.log(b.hashCode());
+const a = new strObject('ada');
+const b = new numObject(12);
+// console.log(strObject.hashCode());
+// console.log(numObject.hashCode());
