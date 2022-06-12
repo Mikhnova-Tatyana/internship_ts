@@ -1,48 +1,14 @@
-interface IComparable {
-  hashCode: () => number;
+interface IComparable<T> {
+  hashCode: (value: T) => number;
 }
 
-class strObject implements IComparable {
-  constructor(private value: string) {
-    this.value = value;
-  }
-  hashCode(): number {
-    let hash: number = 0;
-    let key: string = this.value.toString();
-    if (key.length === 0) return hash;  
-    for (let i: number = 0; i < key.length; i++) {
-      const char: number = key.charCodeAt(i);
-      hash = ((hash << 5) - hash) + char;
-      hash = hash & hash;
-    }
-    return hash;
-  }
-}
-
-class numObject implements IComparable {
-  constructor(private value: number) {
-    this.value = value;
-  }
-  hashCode(): number {
-    let hash: number = 0;
-    let key: string = this.value.toString();
-    if (key.length == 0) return hash;  
-    for (let i = 0; i < key.length; i++) {
-      const char: number = key.charCodeAt(i);
-      hash = ((hash << 5) - hash) + char;
-      hash = hash & hash;
-    }
-    return hash;
-  }
-}
-
-interface IBinaryTree<T extends IComparable> { 
+interface IBinaryTree<T> extends IComparable<T> { 
   value: T | null;
   left: IBinaryTree<T> | null; 
   right: IBinaryTree<T> | null; 
 }
  
-class BinaryTree<T extends IComparable> implements IBinaryTree<T> {   
+class BinaryTree<T> implements IBinaryTree<T> {   
   value: T | null; 
   left: IBinaryTree<T> | null; 
   right: IBinaryTree<T> | null; 
@@ -52,14 +18,26 @@ class BinaryTree<T extends IComparable> implements IBinaryTree<T> {
     this.right = null; 
     this.left = null; 
   }  
+
+  hashCode(value: T): number {
+    let hash: number = 0;
+    let key: string = String(value);
+    if (key.length === 0) return hash;  
+    for (let i: number = 0; i < key.length; i++) {
+      const char: number = key.charCodeAt(i);
+      hash = ((hash << 5) - hash) + char;
+      hash = hash & hash;
+    }
+    return hash;
+  }
  
-  insert(value: T, node: IBinaryTree<T>): IBinaryTree<T> | T {  
+  insert(value: T, node?: IBinaryTree<T>): IBinaryTree<T> | T {  
       node = node || this;  
       if (node.value === null) {  
         node.value = value;  
         return value;
       }  
-      if (value.hashCode() < node.value.hashCode()) {  
+      if (this.hashCode(value) < this.hashCode(node.value)) {  
         if (node.left === null) {  
           node.left = new BinaryTree();  
         }  
@@ -80,15 +58,15 @@ class BinaryTree<T extends IComparable> implements IBinaryTree<T> {
     return this.findMinElement(node.left); 
   } 
  
-  delete(value: T, node: IBinaryTree<T> | null): IBinaryTree<T> | null { 
+  delete(value: T, node?: IBinaryTree<T> | null): IBinaryTree<T> | null { 
     node = node || this;  
-    if (node.value !== null && value.hashCode() < node.value.hashCode()) {  
+    if (node.value !== null && this.hashCode(value) < this.hashCode(node.value)) {  
       if (node.left === null) {  
         return null;  
       }  
       node.left = this.delete(value, node.left);  
       return node;  
-    } else if (node.value !== null && value.hashCode() > node.value.hashCode()) {  
+    } else if (node.value !== null && this.hashCode(value) > this.hashCode(node.value)) {  
         if (node.right === null) {  
           return null;  
         }  
@@ -113,14 +91,14 @@ class BinaryTree<T extends IComparable> implements IBinaryTree<T> {
     } 
   } 
  
-  search(value: T, node: IBinaryTree<T>): boolean {  
+  search(value: T, node?: IBinaryTree<T>): boolean {  
     node = node || this;  
-    if (node.value !== null && value.hashCode() < node.value.hashCode()) {  
+    if (node.value !== null && this.hashCode(value) < this.hashCode(node.value)) {  
       if (node.left === null) {  
         return false;  
       }  
       return this.search(value, node.left);  
-    } else if (node.value !== null && value.hashCode() > node.value.hashCode()) {  
+    } else if (node.value !== null && this.hashCode(value) > this.hashCode(node.value)) {  
       if (node.right === null) {  
         return false;  
       }  
@@ -130,8 +108,3 @@ class BinaryTree<T extends IComparable> implements IBinaryTree<T> {
     }  
   }
 }
-
-const a = new strObject('ada');
-const b = new numObject(12);
-// console.log(strObject.hashCode());
-// console.log(numObject.hashCode());
