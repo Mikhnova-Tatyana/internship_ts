@@ -2,13 +2,13 @@ interface IComparable<T> {
   hashCode: (value: T) => number;
 }
 
-interface IBinaryTree<T> extends IComparable<T> { 
+interface IBinaryTree<T> { 
   value: T | null;
   left: IBinaryTree<T> | null; 
   right: IBinaryTree<T> | null; 
 }
  
-class BinaryTree<T> implements IBinaryTree<T> {   
+class BinaryTree<T> implements IBinaryTree<T>, IComparable<T> {   
   value: T | null; 
   left: IBinaryTree<T> | null; 
   right: IBinaryTree<T> | null; 
