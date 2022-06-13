@@ -25,7 +25,7 @@ class BinaryTree<T extends IComparable> implements IBinaryTree<T> {
         node.value = value;  
         return value;
       }  
-      if (value < node.value) {  
+      if (value.hashCode() < node.value.hashCode()) {  
         if (node.left === null) {  
           node.left = new BinaryTree<T>();  
         }  
@@ -48,13 +48,13 @@ class BinaryTree<T extends IComparable> implements IBinaryTree<T> {
  
   delete(value: T, node?: IBinaryTree<T> | null): IBinaryTree<T> | null { 
     node = node || this;  
-    if (node.value !== null && value < node.value) {  
+    if (node.value !== null && value.hashCode() < node.value.hashCode()) {  
       if (node.left === null) {  
         return null;  
       }  
       node.left = this.delete(value, node.left);  
       return node;  
-    } else if (node.value !== null && value > node.value) {  
+    } else if (node.value !== null && value.hashCode() > node.value.hashCode()) {  
         if (node.right === null) {  
           return null;  
         }  
@@ -81,12 +81,12 @@ class BinaryTree<T extends IComparable> implements IBinaryTree<T> {
  
   search(value: T, node?: IBinaryTree<T>): boolean {  
     node = node || this;  
-    if (node.value !== null && value < node.value) {  
+    if (node.value !== null && value.hashCode() < node.value.hashCode()) {  
       if (node.left === null) {  
         return false;  
       }  
       return this.search(value, node.left);  
-    } else if (node.value !== null && value > node.value) {  
+    } else if (node.value !== null && value.hashCode() > node.value.hashCode()) {  
       if (node.right === null) {  
         return false;  
       }  
